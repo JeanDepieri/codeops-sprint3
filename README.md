@@ -1,66 +1,76 @@
-# Code&Ops
+# Code&Ops — Metaindústria | Sprint 4
 
-## Integrantes
-* Davi da Silva Biaggioli - RM: 552581
-* Jean Lucas Loureiro Depieri - RM: 555797
-* João Gabriel De Bortoli Ribeiro - RM: 554601
-* Lucas Akira Watanabe - RM: 554875
-* Luiz Guilherme de Souza Varischi - RM: 559028      
-* Francisco Ferrara Neto - RM: 557209
+> **Status: documentação preparada; aplicação executável NÃO incluída neste pacote.** Este repositório exportado contém material de planejamento da Sprint 3 e consolidação documental da Sprint 4. **Não é uma entrega funcional pronta**. Substituir esta nota somente depois de incluir e validar o código.
 
-## Escopo da Solução & O Problema
-No cenário industrial tradicional, a segurança do trabalho opera sob um modelo **punitivo e reativo**: o trabalhador é advertido ou multado após a infração ser detectada (muitas vezes após o acidente ocorrer). 
+## Proposta de solução
+A Code&Ops propõe uma plataforma de segurança industrial preventiva para apoiar a identificação de ausência de EPIs, a visualização de alertas, o registro e tratamento de ocorrências e a consulta de histórico. A detecção por IA (YOLOv8), câmeras e avisos em tempo real fazem parte da visão do produto, mas **não são demonstrados nem comprovados pelos arquivos deste ZIP**. O MVP de integração proposto utiliza API Spring Boot e app React Native/Expo para gerenciar ocorrências.
 
-A nossa solução propõe a transição para um modelo de **Segurança Industrial Proativa** dentro do ecossistema da **Metaindústria**. Utilizando monitoramento contínuo baseado em inteligência artificial e computação na borda (Edge Computing), o sistema identifica riscos — como a ausência de Equipamentos de Proteção Individual (EPIs) em funções industriais — e emite **alertas visuais e sonoros em tempo real** diretamente no chão de fábrica. O foco é a **prevenção imediata**, atuando antes que a infração se converta em um acidente de trabalho.
+## Equipe — FIAP
+- Davi da Silva Biaggioli — RM 552581
+- Jean Lucas Loureiro Depieri — RM 555797
+- João Gabriel De Bortoli Ribeiro — RM 554601
+- Lucas Akira Watanabe — RM 554875
+- Luiz Guilherme de Souza Varischi — RM 559028
+- Francisco Ferrara Neto — RM 557209
 
-### Delimitação do Escopo
-* **Dentro do Escopo:** Detecção de 6 EPIs prioritários (capacete, óculos de segurança, luvas, protetor auricular/abafador, máscara e colete refletivo), emissão de alertas em tempo real, lógica de aptidão customizada por função, integração com câmeras e geração de relatórios de conformidade.
-* **Fora do Escopo Atual:** Controle de acesso físico (catracas/portas), armazenamento de vídeos em nuvem, identificação nominal do colaborador (reconhecimento facial), emissão automática de advertências/penalidades e gestão de estoque de EPIs.
+## Links
+- [Board Scrum / Sprint 4](https://trello.com/b/ntk03CPj/to-do)
+- [Figma — protótipo](https://www.figma.com/design/LuqIAuOSWLSUjLfNhVX3Km?node-id=0-1)
+- **GitHub do frontend final:** PREENCHER_URL_FRONTEND
+- **GitHub do backend final:** PREENCHER_URL_BACKEND
+- **Vídeo de pitch (YouTube não listado):** PREENCHER_URL_YOUTUBE
 
-## Escolhas Tecnológicas e Justificativa Técnica
-A arquitetura do projeto foi estruturada focando em máxima performance e estabilidade para o ecossistema industrial:
+## Estado comprovado dos artefatos
+| Item | Situação nesta cópia |
+|---|---|
+| Diagramas, requisitos, Product Backlog e documentação da Sprint 3 | Presentes |
+| Sprint Backlog da Sprint 4, revisão e documentação de arquitetura | Preparados nesta atualização |
+| Código-fonte React Native / Expo | **Ausente** |
+| Código-fonte Java / Spring Boot | **Ausente** |
+| Testes de CRUD, persistência, navegação e integração | **Não executados; exigem os códigos** |
+| Inferência YOLOv8 e câmeras em tempo real | **Não verificadas** |
+| Vídeo e Sprint Review executada | **Pendentes** |
 
-* **Linguagem Principal: Python**
-  * *Justificativa:* Linguagem padrão e extremamente robusta para o desenvolvimento de soluções baseadas em Inteligência Artificial, oferecendo ecossistema maduro para manipulação de fluxos de vídeo.
-* **Framework de Visão Computacional: YOLOv8**
-  * *Justificativa:* Inicialmente, testamos a API pronta do Roboflow Universe, que apresentou instabilidades e travamentos constantes para o processamento em tempo real. Optamos por baixar o dataset e treinar de forma nativa o modelo YOLOv8, com meta de baixa latência e precisão superior a 90%, ainda dependente de avaliação documentada. O material fornecido não contém medições que comprovem esses resultados.
-* **Ambiente de Prototipagem e Dataset: Roboflow**
-  * *Justificativa:* Utilizado estritamente para a coleta, organização e exportação do dataset unificado (mesclando dados públicos e capturas reais de EPIs do Makerlab da FIAP).
-* **Interface e Dashboard: Flask / FastAPI + Painel Web**
-  * *Justificativa:* Frameworks Python leves para servir a lógica de regras de aptidão, processar os dados da webcam em tempo real e alimentar o dashboard de monitoramento com os alertas visuais e sonoros necessários.
-* **Banco de Dados Relacional: Oracle Database**
-  * *Justificativa:* Garante a persistência confiável e íntegra dos logs de auditoria (data, hora e tipo de desconformidade) para a geração de relatórios gerenciais e suporte a auditorias de SST.
+## Stack prevista para a integração
+- **Backend:** Java 17, Spring Boot, Maven, Spring Web/Data JPA, banco H2 persistido em arquivo, CORS configurado.
+- **Frontend:** React Native com Expo, TypeScript, Axios, pasta `src/services/`.
+- **IA (proposta de produto):** Python, YOLOv8 e pipeline de vídeo, dependente de código, modelo e medição para validação.
 
+> O README antigo sugeria Flask/FastAPI e Oracle como stack da solução; esses componentes continuam descritos como alternativas/proposta histórica. **Não declarar que estão integrados à aplicação Spring Boot sem código ou evidências.**
 
-## Sprint 3 — Evolução do protótipo e gestão ágil
+## Como executar — roteiro para ser validado quando o código for anexado
+**Pré-requisitos:** JDK 17 (`java -version`), Maven (`mvn -version`) ou Maven Wrapper, Node.js LTS, npm e Expo Go / emulador compatível.
 
-O protótipo desta Sprint utiliza a documentação das entregas anteriores como referência. Não foi disponibilizada uma versão anterior do Figma para comparação visual. O escopo acordado contém quatro telas: login, monitoramento, histórico e detalhe/tratamento de ocorrência.
+### Backend
+1. Abra a pasta do backend **real**. Verifique se existe `pom.xml`.
+2. Configure `application.properties` para porta `8080` e H2 em arquivo (por exemplo `jdbc:h2:file:./data/codeops`), conforme o projeto real. Evite inserir credenciais de produção no Git.
+3. Execute `./mvnw spring-boot:run` (Linux/macOS, se houver wrapper), `mvn spring-boot:run` (se Maven instalado) ou `mvnw.cmd spring-boot:run` (Windows).
+4. Teste o endpoint **real do projeto** (a URL de exemplo `/api/ocorrencias` não deve ser assumida até validação), documentando GET/POST/PUT/DELETE e códigos HTTP.
 
-### Artefatos
+### Frontend
+1. Abra a pasta do frontend **real**, que deverá possuir `package.json`.
+2. Rode `npm install` e `npx expo start` (adaptar se o projeto utilizar outro gerenciador).
+3. Configure a base URL da API na pasta `src/services/`. **Celular físico:** usar IP LAN do computador, na mesma rede e com firewall liberado. **Emulador Android:** em geral `http://10.0.2.2:8080`. **iOS Simulator/web local:** `http://localhost:8080`, conforme o ambiente.
+4. Valide lista, cadastro, detalhes/tratamento, atualização, exclusão se aplicável, histórico, sem mocks no fluxo principal.
+5. Desligue o backend e comprove uma mensagem de erro visível no app, sem apresentar dados locais como se fossem da API.
 
-- [Protótipo no Figma](https://www.figma.com/design/LuqIAuOSWLSUjLfNhVX3Km?node-id=0-1)
-- [Board Scrum no Trello](https://trello.com/b/ntk03CPj/to-do)
-- [Product Backlog priorizado](docs/sprint3/PRODUCT_BACKLOG.md)
-- [Sprint Backlog](docs/sprint3/SPRINT_BACKLOG.md)
-- [Definição de Pronto](docs/sprint3/DEFINITION_OF_DONE.md)
-- [Cerimônias Scrum — registros pendentes](docs/sprint3/CERIMONIAS.md)
-- [Refinamento da arquitetura](docs/sprint3/ARQUITETURA.md)
-- [Evolução do protótipo](docs/sprint3/EVOLUCAO_PROTOTIPO.md)
-- [Roteiro de validação](docs/sprint3/VALIDACAO.md)
-- [Pendências para entrega](docs/sprint3/PENDENCIAS.md)
+**Importante:** os comandos acima são instruções condicionais, não resultado de teste. Revisar com o código integrado, endpoints reais, versões e prints antes da submissão.
 
-### Justificativa das mudanças
+## Arquitetura, processo e validação
+- [Arquitetura final — estado proposto e lacunas](docs/sprint4/ARQUITETURA_FINAL.md)
+- [Backlog Sprint 4](docs/sprint4/SPRINT_BACKLOG.md)
+- [Ata de Review final — modelo a preencher após reunião](docs/sprint4/REVIEW_FINAL.md)
+- [Casos de teste e validação de entrega](docs/sprint4/VALIDACAO_FINAL.md)
+- [Roteiro do pitch](docs/sprint4/ROTEIRO_PITCH.md)
+- [Rastreabilidade e evolução Sprint 1–4](docs/sprint4/EVOLUCAO_SPRINTS.md)
+- [Documentos originais da Sprint 3](docs/sprint3/)
 
-| Evolução | Razão | Requisitos |
-|---|---|---|
-| Histórico com período, setor e situação | Permitir consultar ocorrências além do monitoramento atual e tornar o log de auditoria acessível | RF05, RF06, RF07 |
-| Detalhe e tratamento com providência registrada | Contextualizar a não conformidade e documentar a ação administrativa; a resolução não comprova aptidão atual | RF04, RF05, RF06 |
-| Navegação concentrada em quatro telas | Reduzir a complexidade da demonstração e tornar explícito o caminho de consulta e atendimento | Refinamento de usabilidade |
+## Manual resumido do produto (fluxo-alvo)
+1. Abrir app, acessar tela inicial/login conforme implementação real.
+2. Consultar dashboard/ocorrências persistidas pela API.
+3. Cadastrar ocorrência com validações.
+4. Abrir detalhe e registrar a providência ou alterar status; distinguir alerta resolvido de aptidão atual do trabalhador.
+5. Consultar o histórico e filtros, quando implementados.
 
-A base já previa alertas e tratamento simples. A evolução proposta aprofunda a consulta histórica e o registro detalhado da providência. Não se alega comparação com telas anteriores não disponíveis. A aceitação dessa referência documental para o requisito de evolução deve ser confirmada com o professor.
-
-### Situação da entrega
-
-Jean informou a conclusão do Figma. A navegação e o acesso do avaliador ainda precisam de revisão registrada. Os documentos técnicos e os backlogs estão preparados; cerimônias e aprovação do grupo permanecem pendentes. Os dados das telas são demonstrativos e não comprovam implementação de autenticação, API, inferência ou persistência.
-
-O ZIP original contém documentação e diagramas, não uma aplicação executável. A arquitetura da Sprint 3 é uma proposta técnica para implementação e validação.
+## Entrega acadêmica
+Enviar **somente** o arquivo `.txt` com nomes/RMs e links válidos de GitHub, Trello e YouTube. Modelo em `SPRINT4_ENTREGA_CODEOPS.txt`. O pacote de documentação não substitui a aplicação nem o vídeo.
